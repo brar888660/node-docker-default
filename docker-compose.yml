@@ -1,0 +1,32 @@
+version : '3'
+services:
+  webapp:
+    build: 
+      context: .
+      args: 
+        - NODE_ENV=development
+    image: temp-webapp
+    ports:  
+      - "80:3000"
+      - "9229:9229"
+      - "9230:9230"
+    command: ./node_modules/.bin/nodemon --inspect server.js
+    depends_on: 
+      - mongo
+    environment:
+      - NODE_ENV=development
+      - MONGO_USERNAME=root
+      - MONGO_PASSWORD=example
+      - MONGO_HOSTNAME=mongo
+      - MONGO_PORT=27017
+      - MONGO_DATABASE_NAME=example-database
+    volumes: 
+      - '.:/opt/app'
+  mongo:
+    image: mongo:3.4.19 
+    ports:
+      - "27017:27017"   
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_DATABASE=example-database
