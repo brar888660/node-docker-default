@@ -14,7 +14,7 @@ COPY . .
 RUN cp -a /tmp/node_modules /opt/app
 
 
-ARG PORT=60900
+ARG PORT=3000
 ENV PORT $PORT
 EXPOSE $PORT
 
